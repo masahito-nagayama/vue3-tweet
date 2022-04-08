@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch, toRefs, onMounted, onBeforeMount, onUpdated } from 'vue'
-
+// import { ref, reactive, computed, watch, toRefs, onMounted, onBeforeMount, onUpdated } from 'vue'
+const tweets = [{ id: '0', description: '頑張れ'}, {id: '1', description: 'おまえががんばれ'}]
 </script>
 
 <template>
@@ -9,6 +9,15 @@ import { ref, reactive, computed, watch, toRefs, onMounted, onBeforeMount, onUpd
     <div class="form-container">
       <input />
       <button class="save-button">post</button>
+    </div>
+    <div>
+      <div class="tweet-container">
+        <ul>
+          <li v-for="tweet in tweets" class="tweet-list">
+            <span>{{ tweet.description }}</span>
+          </li>
+        </ul>
+      </div> 
     </div>
   </div>
 </template>
@@ -29,6 +38,10 @@ import { ref, reactive, computed, watch, toRefs, onMounted, onBeforeMount, onUpd
   width: 60%;
   margin-bottom: 12px;
   border-radius: 4px;
+}
+
+.tweet-list {
+  list-style: none;
 }
 
 button {
