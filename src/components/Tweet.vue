@@ -1,20 +1,32 @@
 <script setup lang="ts">
-// import { ref, reactive, computed, watch, toRefs, onMounted, onBeforeMount, onUpdated } from 'vue'
-const tweets = [{ id: '0', description: '頑張れ'}, {id: '1', description: 'おまえががんばれ'}]
+import { ref } from 'vue'
+const tweets = ref([{ id: 0, description: '頑張れ'}, {　id: 1, description: 'おまえががんばれ'}])
+const inputtingDescription = ref<string>('')
+const postTweet = () => {
+  const tweet = { id: Math.random(), description: inputtingDescription.value }
+  tweets.value.push(tweet)
+}
+
+const deleteTweet = (id:　number) => {
+  tweets.value = tweets.value.filter(t => t.id !== id)
+  // 押されたtweet.id以外のオブジェクトを配列に格納していることで削除されたように表現している。
+}
+
 </script>
 
 <template>
   <div class="container">
     <h1>Tweeter</h1>
     <div class="form-container">
-      <input />
-      <button class="save-button">post</button>
+      <input v-model="inputtingDescription"/>
+      <button class="save-button" @click="postTweet()">post</button>
     </div>
     <div>
       <div class="tweet-container">
         <ul>
-          <li v-for="tweet in tweets" class="tweet-list">
+          <li v-for="tweet in tweets" :key="tweet.id" class="tweet-list">
             <span>{{ tweet.description }}</span>
+            <button @click="deleteTweet(tweet.id)" class="delete-button">Delete</button>
           </li>
         </ul>
       </div> 
@@ -42,9 +54,17 @@ const tweets = [{ id: '0', description: '頑張れ'}, {id: '1', description: '�
 
 .tweet-list {
   list-style: none;
+  margin-bottom: 12px;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(83, 166, 240);
+  border-radius: 4px;
+  padding: 8px 20px;
+  width: 500px;
 }
 
-button {
+.save-button {
   color: #fff;
   font-weight: bold;
   background-color: #68c9c9;
@@ -54,8 +74,21 @@ button {
   height: 22px;
 }
 
-button:hover {
+.delete-button {
+  color: #fff;
+  font-weight: bold;
+  background-color: #f11708;
+  border-radius: 2px;
+  border: none;
+  width: 60px;
+  height: 22px;
+}
+
+.save-button:hover {
   background-color: #37bdbd;
+}
+.delete-button:hover {
+  background-color: #f5746f;
 }
 
 input {
