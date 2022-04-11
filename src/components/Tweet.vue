@@ -23,6 +23,7 @@ const deleteTweet = (id:　number) => {
     </div>
     <div>
       <div class="tweet-container">
+        <p v-if="tweets.length <= 0">現在Tweeetはなにもありません。</p>
         <ul>
           <li v-for="tweet in tweets" :key="tweet.id" class="tweet-list">
             <span>{{ tweet.description }}</span>
